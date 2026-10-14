@@ -33,7 +33,7 @@ function onLogout() {
       <el-tag type="success">M0 骨架完成</el-tag>
       <el-tag type="success">M1-1 登录认证完成</el-tag>
       <el-tag type="success">M1-2 题库管理完成</el-tag>
-      <el-tag type="info">M1-3 预置题库开发中</el-tag>
+      <el-tag type="success">M1-3 预置题库完成</el-tag>
     </el-space>
   </div>
 </template>
