@@ -15,6 +15,24 @@ const router = createRouter({
       component: () => import('../views/DashboardView.vue'),
       meta: { title: '面经阁' },
     },
+    {
+      path: '/questions',
+      name: 'question-list',
+      component: () => import('../views/QuestionListView.vue'),
+      meta: { title: '题库管理' },
+    },
+    {
+      path: '/questions/new',
+      name: 'question-create',
+      component: () => import('../views/QuestionEditView.vue'),
+      meta: { title: '新建题目' },
+    },
+    {
+      path: '/questions/:id/edit',
+      name: 'question-edit',
+      component: () => import('../views/QuestionEditView.vue'),
+      meta: { title: '编辑题目' },
+    },
   ],
 })
 

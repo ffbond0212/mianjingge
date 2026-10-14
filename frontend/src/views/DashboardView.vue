@@ -27,9 +27,13 @@ function onLogout() {
     </div>
     <p>面试题库复盘系统</p>
     <el-space>
+      <el-button type="primary" @click="router.push('/questions')">进入题库管理</el-button>
+    </el-space>
+    <el-space class="tags">
       <el-tag type="success">M0 骨架完成</el-tag>
       <el-tag type="success">M1-1 登录认证完成</el-tag>
-      <el-tag type="info">M1-2 题库管理开发中</el-tag>
+      <el-tag type="success">M1-2 题库管理完成</el-tag>
+      <el-tag type="info">M1-3 预置题库开发中</el-tag>
     </el-space>
   </div>
 </template>
@@ -45,5 +49,8 @@ function onLogout() {
 }
 .nickname {
   color: #606266;
+}
+.tags {
+  margin-top: 16px;
 }
 </style>
