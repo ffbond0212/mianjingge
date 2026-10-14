@@ -1,0 +1,25 @@
+# Java / Maven
+backend/target/
+*.class
+
+# Node
+frontend/node_modules/
+frontend/dist/
+*.local
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 环境变量（真实配置不入库，见 .env.example）
+.env
+
+# logs / temp
+logs/
+*.log
+tmp/

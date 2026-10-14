@@ -1,0 +1,45 @@
+# 面经阁 本地基础设施：MySQL 8 + Redis 7
+# 启动：docker compose up -d    停止：docker compose down（数据保留在 volume）
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: mianjingge-mysql
+    restart: unless-stopped
+    environment:
+      # 密码从 .env 读取（cp .env.example .env），不写死在仓库里
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: mianjingge
+      MYSQL_USER: mianjingge
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      TZ: Asia/Shanghai
+    ports:
+      - "33061:3306"   # 宿主 33061，避开本机已有 MySQL 的 3306
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-umianjingge", "-pmianjingge123"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7.4-alpine
+    container_name: mianjingge-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    ports:
+      - "63791:6379"   # 宿主 63791，避开本机可能的 Redis 6379
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  mysql_data:
+  redis_data:
