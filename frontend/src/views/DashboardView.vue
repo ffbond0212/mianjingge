@@ -44,6 +44,7 @@ function onLogout() {
       <el-tag type="success">M2-1 复盘统计完成</el-tag>
       <el-tag type="success">M3-1 复习计划完成</el-tag>
       <el-tag type="success">M3-2 投递看板完成</el-tag>
+      <el-tag type="success">M4-1 打磨完成</el-tag>
     </el-space>
   </div>
 </template>
