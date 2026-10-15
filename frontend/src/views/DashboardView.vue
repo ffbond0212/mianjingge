@@ -31,6 +31,7 @@ function onLogout() {
       <el-button type="primary" @click="router.push('/interviews')">进入面试记录</el-button>
       <el-button type="primary" @click="router.push('/stats')">复盘统计</el-button>
       <el-button type="success" @click="router.push('/review')">今日复习</el-button>
+      <el-button type="primary" @click="router.push('/applications')">投递看板</el-button>
       <el-button @click="router.push('/import')">md 导入面试记录</el-button>
     </el-space>
     <el-space class="tags">
@@ -42,6 +43,7 @@ function onLogout() {
       <el-tag type="success">M1-5 md 导入完成</el-tag>
       <el-tag type="success">M2-1 复盘统计完成</el-tag>
       <el-tag type="success">M3-1 复习计划完成</el-tag>
+      <el-tag type="success">M3-2 投递看板完成</el-tag>
     </el-space>
   </div>
 </template>

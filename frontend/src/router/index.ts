@@ -75,6 +75,12 @@ const router = createRouter({
       component: () => import('../views/ReviewView.vue'),
       meta: { title: '复习计划' },
     },
+    {
+      path: '/applications',
+      name: 'application-board',
+      component: () => import('../views/ApplicationBoardView.vue'),
+      meta: { title: '投递看板' },
+    },
   ],
 })
 
