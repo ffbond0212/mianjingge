@@ -27,6 +27,7 @@ public class QuestionService {
     public static final String SOURCE_MANUAL = "MANUAL";
 
     private final QuestionMapper questionMapper;
+    private final StatsService statsService;
 
     /** 分页查询：关键词模糊匹配 标题/标准答案/个人话术 */
     public PageResult<QuestionVO> page(QuestionQueryRequest request) {
@@ -68,6 +69,7 @@ public class QuestionService {
         question.setSource(SOURCE_MANUAL);
         question.setReviewCount(0);
         questionMapper.insert(question);
+        statsService.invalidate();
         return QuestionVO.from(question);
     }
 
@@ -80,12 +82,14 @@ public class QuestionService {
         question.setStdAnswer(request.getStdAnswer());
         question.setMyAnswer(request.getMyAnswer());
         questionMapper.updateById(question);
+        statsService.invalidate();
         return QuestionVO.from(question);
     }
 
     public void delete(Long id) {
         requireQuestion(id);
         questionMapper.deleteById(id);
+        statsService.invalidate();
     }
 
     private Question requireQuestion(Long id) {

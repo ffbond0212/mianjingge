@@ -39,6 +39,7 @@ public class InterviewService {
     private final InterviewMapper interviewMapper;
     private final InterviewQuestionMapper interviewQuestionMapper;
     private final QuestionMapper questionMapper;
+    private final StatsService statsService;
 
     /** 分页查询场次：关键词模糊匹配 公司/岗位/轮次 */
     public PageResult<InterviewVO> page(InterviewQueryRequest request) {
@@ -68,6 +69,7 @@ public class InterviewService {
         Interview interview = new Interview();
         apply(interview, request);
         interviewMapper.insert(interview);
+        statsService.invalidate();
         return toVO(interview, List.of());
     }
 
@@ -75,6 +77,7 @@ public class InterviewService {
         Interview interview = requireInterview(id);
         apply(interview, request);
         interviewMapper.updateById(interview);
+        statsService.invalidate();
         return toVO(interview, listRecords(id));
     }
 
@@ -84,6 +87,7 @@ public class InterviewService {
         interviewQuestionMapper.delete(new LambdaQueryWrapper<InterviewQuestion>()
                 .eq(InterviewQuestion::getInterviewId, id));
         interviewMapper.deleteById(id);
+        statsService.invalidate();
     }
 
     /** 添加题目记录：可关联题库已有题（questionId），或现场新题只存快照 */
@@ -100,6 +104,7 @@ public class InterviewService {
         }
         apply(record, request);
         interviewQuestionMapper.insert(record);
+        statsService.invalidate();
         return toQuestionVO(record, titleOf(record.getQuestionId()));
     }
 
@@ -108,12 +113,14 @@ public class InterviewService {
         // 关联题目创建后不可变更，防止篡改
         apply(record, request);
         interviewQuestionMapper.updateById(record);
+        statsService.invalidate();
         return toQuestionVO(record, titleOf(record.getQuestionId()));
     }
 
     public void deleteQuestion(Long interviewId, Long recordId) {
         requireRecord(interviewId, recordId);
         interviewQuestionMapper.deleteById(recordId);
+        statsService.invalidate();
     }
 
     /** 把现场回答快照保存为对应题库题目的个人话术 */

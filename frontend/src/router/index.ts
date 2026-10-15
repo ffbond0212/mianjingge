@@ -63,6 +63,12 @@ const router = createRouter({
       component: () => import('../views/ImportView.vue'),
       meta: { title: 'md 导入' },
     },
+    {
+      path: '/stats',
+      name: 'stats',
+      component: () => import('../views/StatsView.vue'),
+      meta: { title: '复盘统计' },
+    },
   ],
 })
 
