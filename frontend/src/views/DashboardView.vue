@@ -28,12 +28,14 @@ function onLogout() {
     <p>面试题库复盘系统</p>
     <el-space>
       <el-button type="primary" @click="router.push('/questions')">进入题库管理</el-button>
+      <el-button type="primary" @click="router.push('/interviews')">进入面试记录</el-button>
     </el-space>
     <el-space class="tags">
       <el-tag type="success">M0 骨架完成</el-tag>
       <el-tag type="success">M1-1 登录认证完成</el-tag>
       <el-tag type="success">M1-2 题库管理完成</el-tag>
       <el-tag type="success">M1-3 预置题库完成</el-tag>
+      <el-tag type="success">M1-4 面试记录完成</el-tag>
     </el-space>
   </div>
 </template>

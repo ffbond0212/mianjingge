@@ -33,6 +33,30 @@ const router = createRouter({
       component: () => import('../views/QuestionEditView.vue'),
       meta: { title: '编辑题目' },
     },
+    {
+      path: '/interviews',
+      name: 'interview-list',
+      component: () => import('../views/InterviewListView.vue'),
+      meta: { title: '面试记录' },
+    },
+    {
+      path: '/interviews/new',
+      name: 'interview-create',
+      component: () => import('../views/InterviewEditView.vue'),
+      meta: { title: '新建面试' },
+    },
+    {
+      path: '/interviews/:id/edit',
+      name: 'interview-edit',
+      component: () => import('../views/InterviewEditView.vue'),
+      meta: { title: '编辑面试' },
+    },
+    {
+      path: '/interviews/:id',
+      name: 'interview-detail',
+      component: () => import('../views/InterviewDetailView.vue'),
+      meta: { title: '面试详情' },
+    },
   ],
 })
 
