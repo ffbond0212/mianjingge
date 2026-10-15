@@ -57,6 +57,12 @@ const router = createRouter({
       component: () => import('../views/InterviewDetailView.vue'),
       meta: { title: '面试详情' },
     },
+    {
+      path: '/import',
+      name: 'md-import',
+      component: () => import('../views/ImportView.vue'),
+      meta: { title: 'md 导入' },
+    },
   ],
 })
 

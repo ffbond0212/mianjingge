@@ -71,6 +71,7 @@ onMounted(load)
       </el-select>
       <el-button type="primary" @click="onSearch">搜索</el-button>
       <el-button @click="onReset">重置</el-button>
+      <el-button @click="router.push('/import')">md 导入</el-button>
       <el-button type="success" class="create-btn" @click="onCreate">新建题目</el-button>
     </div>
 
