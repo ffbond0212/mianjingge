@@ -36,6 +36,7 @@ public class ImportService {
     private final InterviewQuestionMapper interviewQuestionMapper;
     private final QuestionMapper questionMapper;
     private final StatsService statsService;
+    private final ReviewService reviewService;
 
     /** 解析 md 为预览数据（不落库）：场次信息 + 题目项（含复用匹配、覆盖勾选默认值） */
     public ImportParseResponse parse(String content) {
@@ -119,6 +120,7 @@ public class ImportService {
             record.setDeduction(item.getDeduction());
             record.setMyAnswerSnapshot(item.getMyAnswerSnapshot());
             interviewQuestionMapper.insert(record);
+            reviewService.autoEnqueue(questionId, item.getTitle(), item.getScore(), item.getAnswered());
         }
         statsService.invalidate();
         return interview.getId();

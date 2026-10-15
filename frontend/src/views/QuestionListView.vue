@@ -3,6 +3,7 @@ import { onMounted, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { questionApi, type QuestionItem, type QuestionQuery } from '../api/question'
+import { reviewApi } from '../api/review'
 import { CATEGORIES, DIFFICULTIES, SOURCES, categoryLabel, difficultyLabel, sourceLabel } from '../constants/question'
 
 const router = useRouter()
@@ -53,6 +54,16 @@ async function onDelete(row: QuestionItem) {
   load()
 }
 
+/** 加入复习队列（低分/未答记录也会自动入队） */
+async function onEnqueue(row: QuestionItem) {
+  try {
+    const vo = await reviewApi.enqueue(row.id)
+    ElMessage.success(`已入队，${vo.nextReviewDate} 首次复习`)
+  } catch {
+    // 已在队列等错误已由拦截器提示
+  }
+}
+
 onMounted(load)
 </script>
 
@@ -95,8 +106,9 @@ onMounted(load)
       <el-table-column label="更新时间" width="170">
         <template #default="{ row }">{{ new Date(row.updatedAt).toLocaleString() }}</template>
       </el-table-column>
-      <el-table-column label="操作" width="140" fixed="right">
+      <el-table-column label="操作" width="210" fixed="right">
         <template #default="{ row }">
+          <el-button link type="success" @click="onEnqueue(row)">加入复习</el-button>
           <el-button link type="primary" @click="onEdit(row)">编辑</el-button>
           <el-button link type="danger" @click="onDelete(row)">删除</el-button>
         </template>

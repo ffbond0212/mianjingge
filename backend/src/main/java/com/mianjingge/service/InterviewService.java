@@ -40,6 +40,7 @@ public class InterviewService {
     private final InterviewQuestionMapper interviewQuestionMapper;
     private final QuestionMapper questionMapper;
     private final StatsService statsService;
+    private final ReviewService reviewService;
 
     /** 分页查询场次：关键词模糊匹配 公司/岗位/轮次 */
     public PageResult<InterviewVO> page(InterviewQueryRequest request) {
@@ -105,6 +106,7 @@ public class InterviewService {
         apply(record, request);
         interviewQuestionMapper.insert(record);
         statsService.invalidate();
+        reviewService.autoEnqueue(record.getQuestionId(), request.getQuestionSnapshot(), record.getScore(), record.getAnswered());
         return toQuestionVO(record, titleOf(record.getQuestionId()));
     }
 
@@ -114,6 +116,7 @@ public class InterviewService {
         apply(record, request);
         interviewQuestionMapper.updateById(record);
         statsService.invalidate();
+        reviewService.autoEnqueue(record.getQuestionId(), request.getQuestionSnapshot(), record.getScore(), record.getAnswered());
         return toQuestionVO(record, titleOf(record.getQuestionId()));
     }
 
